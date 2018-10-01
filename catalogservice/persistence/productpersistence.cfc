@@ -1,13 +1,13 @@
 component hint="This is persistence implementation to persist/retrieve product information from database" 
 {	
 	
-	public cfsummit.catalogservice.model.product function saveProduct(prdName,prdDescription,prdImageLinks) 
+	public catalogservice.model.product function saveProduct(prdName,prdDescription,prdImageLinks) 
 	{
 		
 		queryexecute("insert into product_table (product_name,product_description,product_image_links) values(?,?,?)",
 			[prdName,prdDescription,prdImageLinks],{result="result"});
 		linkArray = prdImageLinks.split(",");
-		product = createObject("component", "cfsummit.catalogservice.model.product");
+		product = createObject("component", "catalogservice.model.product");
 		product.product_name = prdName;
 		product.product_description = prdDescription;
 		product.product_image_links = linkArray;
@@ -16,13 +16,13 @@ component hint="This is persistence implementation to persist/retrieve product i
 		return product;
 	}
 		
-	public cfsummit.catalogservice.model.product[] function getProducts() 
+	public catalogservice.model.product[] function getProducts() 
 	{
 		queryResultObj = queryexecute("select * from product_table");
 		var productList = arraynew(1);
 		cfloop(query="queryResultObj")
 		{
-			product = createObject("component", "cfsummit.catalogservice.model.product" );
+			product = createObject("component", "catalogservice.model.product" );
 			product.product_name = queryResultObj.product_name;
 			product.product_description = queryResultObj.product_description;
 			image_links = queryResultObj.product_image_links;
@@ -36,13 +36,13 @@ component hint="This is persistence implementation to persist/retrieve product i
 	} 
 	
 
-	public cfsummit.catalogservice.model.product function getProductById(productIdArg) 
+	public catalogservice.model.product function getProductById(productIdArg) 
 	{
 		
 		qparams = {productid={value=productIdArg , cfsqltype ='cf_sql_integer'}};
 		queryResultObj = queryexecute("select * from product_table where product_id=:productid",qparams);
 
-		product = createObject("component", "cfsummit.catalogservice.model.product" );
+		product = createObject("component", "catalogservice.model.product" );
 		product.product_name = queryResultObj.product_name;
 		product.product_description = queryResultObj.product_description;
 		image_links = queryResultObj.product_image_links;
