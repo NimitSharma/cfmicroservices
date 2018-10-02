@@ -37,7 +37,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - /opt/cfsummit/mysql/datadir:/var/lib/mysql
+      - /opt/demo/cfmicroservices/mysql:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=P@$$w0rd
       -  MYSQL_ROOT_HOST=%
